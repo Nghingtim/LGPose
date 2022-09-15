@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------------
-# Copyright (c) Southeast University. Licensed under the MIT License.
-# Written by Sen Yang (yangsenius@seu.edu.cn)
+# Origina Written by Sen Yang (yangsenius@seu.edu.cn)
+# Improved by ng
 # ------------------------------------------------------------------------------
 
 from __future__ import absolute_import
@@ -281,12 +281,8 @@ class FeedForwardwithdiaCNN(nn.Module):
         self.net = nn.Sequential(
             nn.Conv2d(dim, hidden_dim, 1),
             nn.Hardswish(),
-            # DepthWiseConv2d(hidden_dim, hidden_dim, 3, padding = 1),
             nn.Conv2d(hidden_dim, hidden_dim, 5, padding=2, groups=hidden_dim),
             nn.Conv2d(hidden_dim, hidden_dim, 7, stride=1, padding=9, groups=hidden_dim, dilation=3),
-            # nn.Conv2d(dim, dim, 3, stride=1, padding=1, groups=dim, dilation=1),
-            # nn.Conv2d(dim, dim, 3, stride=1, padding=2, groups=dim, dilation=2),
-            # nn.Conv2d(dim, dim, 3, stride=1, padding=5, groups=dim, dilation=5),
             # nn.Hardswish(),
             # nn.Dropout(dropout),
             nn.Conv2d(hidden_dim, dim, 1),
@@ -309,10 +305,6 @@ class FeedForwardWithLargeK(nn.Module):
         super().__init__()
         self.net = nn.Sequential(
             nn.Conv2d(dim,dim,kernel_size=7,padding=3,groups=dim),
-            # nn.Conv2d(dim, dim, 7, stride=1, padding=9, groups=dim, dilation=3),
-            # nn.Conv2d(dim, dim, 3, stride=1, padding=1, groups=dim, dilation=1),
-            # nn.Conv2d(dim, dim, 3, stride=1, padding=2, groups=dim, dilation=2),
-            # nn.Conv2d(dim, dim, 3, stride=1, padding=5, groups=dim, dilation=5),
             nn.Hardswish(),
             nn.Conv2d(dim, hidden_dim, 1),
             nn.Hardswish(),
